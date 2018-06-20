@@ -15,13 +15,15 @@ import Foundation
 public class ServiceManager: NSObject {
     
     // MARK: - Accessors
-
+    
     /// URL of the directory where persistent store's is located.
     private lazy var storeDirectoryURL: URL = {
         let storeDirectoryURL = FileManager.default.documentsDirectoryURL().appendingPathComponent("persistent-store")
         
         return storeDirectoryURL
     }()
+    
+    public var shouldDeleteOnMigration = true
     
     private var modelFileName: String?
     
@@ -152,6 +154,10 @@ public class ServiceManager: NSObject {
     private func createPersistentStoreAndAssignToCoordinatorWithDeleteAndRetryOnError(coordinator: NSPersistentStoreCoordinator, deleteAndRetry: Bool) {
         var directoryCreated = true
         
+        if  shouldDeleteOnMigration && FileManager.default.fileExists(atPath: storeDirectoryURL.path) && !isCompatible(with: storeURL, model: managedObjectModel) {
+            try? FileManager.default.removeItem(at: storeDirectoryURL)
+        }
+        
         //Creating an additional directory so that when we clear we get all the files connected to Core Data
         if !FileManager.default.fileExists(atPath: storeDirectoryURL.path) {
             directoryCreated = FileManager.default.createDirectory(absoluteDirectoryPath: storeDirectoryURL.path)
@@ -180,6 +186,19 @@ public class ServiceManager: NSObject {
         }
     }
     
+    private func isCompatible(with storeURL: URL, model: NSManagedObjectModel) -> Bool {
+        var isCompatible = false
+        
+        do {
+            let metadata = try NSPersistentStoreCoordinator.metadataForPersistentStore(ofType: NSSQLiteStoreType, at: storeURL, options: nil)
+            isCompatible = model.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
+        } catch  {
+            print("Failed to check if model is compatible, assuming it is not \(error)")
+        }
+        
+        return isCompatible
+    }
+    
     /**
      Deletes the persistent store from the file system.
      */
@@ -197,7 +216,7 @@ public class ServiceManager: NSObject {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
         
-         deletePersistentStore()
+        deletePersistentStore()
         
         _mainManagedObjectContext?.reset()
         _mainManagedObjectContext = nil
