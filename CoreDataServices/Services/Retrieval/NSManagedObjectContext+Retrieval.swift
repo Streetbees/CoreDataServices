@@ -53,7 +53,7 @@ public extension NSManagedObjectContext {
             
             return managedObjects
         } catch {
-            print("Error attempting to retrieve entries from class \(entityClass), predicate \(String(describing: predicate)), sortDescriptors \(describing: sortDescriptors), fetchBatchSize \(fetchBatchSize), fetchLimit \(fetchLimit), managedObjectContext \(self). Error: \(error)")
+            print("Error attempting to retrieve entries from class \(entityClass), predicate \(String(describing: predicate)), sortDescriptors \(String(describing: sortDescriptors)), fetchBatchSize \(fetchBatchSize), fetchLimit \(fetchLimit), managedObjectContext \(self). Error: \(error)")
             
             return [T]()
         }
