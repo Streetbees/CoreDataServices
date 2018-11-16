@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "CoreDataServices"
-  s.version      = "4.0.0"
+  s.version      = "4.1.0"
   s.summary      = "CoreDataServices contains a set of helper classes/extensions to abstract out a lot of the boilerplate that you get with Core Data."
 
   s.homepage     = "http://www.williamboles.me"
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "9.0"
   s.swift_version = '4.0'
 
-  s.source       = { :git => "https://github.com/wibosco/CoreDataServices.git",
+  s.source       = { :git => "https://github.com/Streetbees/CoreDataServices.git",
   					 :branch => "master",
   					 :tag => s.version }
 
