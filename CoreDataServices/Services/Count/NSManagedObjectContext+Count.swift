@@ -23,7 +23,7 @@ public extension NSManagedObjectContext {
      
      - Returns: `NSUInteger` count of entries for this class/entity.
      */
-    public func retrieveEntriesCount(entityClass: NSManagedObject.Type) -> Int {
+    func retrieveEntriesCount(entityClass: NSManagedObject.Type) -> Int {
         return self.retrieveEntriesCount(entityClass: entityClass, predicate: nil)
     }
     
@@ -35,7 +35,7 @@ public extension NSManagedObjectContext {
      
      - Returns: `NSUInteger` count of entries that match provided predicate.
      */
-    public func retrieveEntriesCount(entityClass: NSManagedObject.Type, predicate: NSPredicate?) -> Int {
+    func retrieveEntriesCount(entityClass: NSManagedObject.Type, predicate: NSPredicate?) -> Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityClass: entityClass)
         
         if let predicate = predicate {

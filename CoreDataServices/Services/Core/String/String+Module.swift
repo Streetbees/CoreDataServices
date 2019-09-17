@@ -21,7 +21,7 @@ public extension String {
      
      - Returns: Stripped `String` instance of entityClass passed in.
      */
-    public static func stripModule(entityClass: NSManagedObject.Type) -> String? {
+    static func stripModule(entityClass: NSManagedObject.Type) -> String? {
         return String(describing: entityClass).components(separatedBy: ".").last
     }
 }
