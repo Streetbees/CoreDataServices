@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.2.0]
+
+* Updated project to use Swift 5
+
 ## [4.0.0](https://github.com/wibosco/CoreDataServices/releases/tag/4.0.0)
 
 * Updated project to use Swift 4.0
