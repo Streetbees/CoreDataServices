@@ -26,7 +26,7 @@ public extension NSEntityDescription {
      
      - Returns: `NSEntityDescription` instance of entityClass passed in.
      */
-    public class func entityDescriptionFor(entityClass: NSManagedObject.Type, managedObjectContext: NSManagedObjectContext) -> NSEntityDescription {
+    class func entityDescriptionFor(entityClass: NSManagedObject.Type, managedObjectContext: NSManagedObjectContext) -> NSEntityDescription {
         let entityName = String.stripModule(entityClass: entityClass)!
         
         NSEntityDescription.entity(forEntityName: entityName, in: managedObjectContext)
@@ -46,7 +46,7 @@ public extension NSEntityDescription {
      - Returns: `NSManagedObject` instance of entityClass passed in.
      */
     @discardableResult
-    public class func insertNewObject<T: NSManagedObject>(entityClass: T.Type, managedObjectContext: NSManagedObjectContext) -> T {
+    class func insertNewObject<T: NSManagedObject>(entityClass: T.Type, managedObjectContext: NSManagedObjectContext) -> T {
         let entityName = String.stripModule(entityClass: entityClass)!
         
         //if entityName does not exist we want this statement to throw an exception and crash the app - fail fast
